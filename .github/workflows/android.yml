@@ -5,9 +5,9 @@ on:
 jobs:
   Android:
     runs-on: macos-latest
-    defaults:
-      run:
-        working-directory: build
+    # defaults:
+      # run:
+        # working-directory: build
     steps:
       - uses: actions/checkout@v2
       - name: Start emulator
@@ -31,4 +31,4 @@ jobs:
           # adb push build/* /data/local/tmp
           # adb shell find /data/local/tmp/build -maxdepth 1 -exec chmod +x {} \\\;
           # adb shell find /data/local/tmp/build -name "ci-test" -maxdepth 1 -exec {} \\\;
-    
+        # working-directory: build
