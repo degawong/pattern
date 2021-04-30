@@ -29,7 +29,7 @@ jobs:
           ls .
           cd ..
           adb push build /data/local/tmp
-          adb shell "su -c '/data/local/tmp/build/ci-test'"
+          adb shell "su '/data/local/tmp/build/test'"
           adb shell find /data/local/tmp/build -maxdepth 1 -exec chmod +x {} \\\;
           adb shell find /data/local/tmp/build -name "ci-test" -maxdepth 1 -exec {} \\\;
         # working-directory: build
