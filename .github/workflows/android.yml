@@ -27,9 +27,8 @@ jobs:
           $ANDROID_HOME/platform-tools/adb shell getprop ro.product.cpu.abi
           echo "Emulator started"
           ls .
-          cd ..
-          adb push build /data/local/tmp
-          adb shell "su '/data/local/tmp/build/test'"
-          adb shell find /data/local/tmp/build -maxdepth 1 -exec chmod +x {} \\\;
-          adb shell find /data/local/tmp/build -name "ci-test" -maxdepth 1 -exec {} \\\;
+          adb push ci-test /data/local/tmp/
+          adb shell am start -n /data/local/tmp/ci-test          
+          # adb shell find /data/local/tmp/build -maxdepth 1 -exec chmod +x {} \\\;
+          # adb shell find /data/local/tmp/build -name "ci-test" -maxdepth 1 -exec {} \\\;
         # working-directory: build
