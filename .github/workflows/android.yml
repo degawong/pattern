@@ -28,7 +28,8 @@ jobs:
           echo "Emulator started"
           ls .
           adb push ci-test /data/local/tmp/
-          adb shell am start -n /data/local/tmp/ci-test          
+          # adb shell am start -n /data/local/tmp/ci-test
+          adb shell "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/data/local/tmp/; env; cd /data/local/tmp/; chmod +x ./ci-test; ./ci-test"   
           # adb shell find /data/local/tmp/build -maxdepth 1 -exec chmod +x {} \\\;
           # adb shell find /data/local/tmp/build -name "ci-test" -maxdepth 1 -exec {} \\\;
         # working-directory: build
