@@ -8,22 +8,23 @@ jobs:
       image: jangrewe/gitlab-ci-android    
     steps:
     - run: |
+        ls $ANDROID_SDK_ROOT/tools/bin/sdkmanager
         echo "y" | $ANDROID_SDK_ROOT/tools/bin/sdkmanager --install 'system-images;android-24;default;x86_64'
-        echo "no" | $ANDROID_SDK_ROOT/tools/bin/avdmanager create avd -n wong_avd -k 'system-images;android-24;default;x86_64' --force
-        $ANDROID_SDK_ROOT/emulator/emulator -list-avds
-        echo "Starting emulator"
-        nohup $ANDROID_SDK_ROOT/emulator/emulator -avd wong_avd -no-snapshot > /dev/null 2>&1 &
-        echo "Emulator starting"
-        mkdir build
-        cd build
-        cmake -DCMAKE_TOOLCHAIN_FILE=$ANDROID_SDK_ROOT/ndk-bundle/build/cmake/android.toolchain.cmake -DCMAKE_BUILD_TYPE=Release -DANDROID_ABI=x86_64 -DANDROID_ARM_NEON=ON -DANDROID_PLATFORM=16 ..
-        cmake --build . --target ci-test
-        $ANDROID_SDK_ROOT/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 10; done; input keyevent 82'
-        $ANDROID_SDK_ROOT/platform-tools/adb devices
-        $ANDROID_SDK_ROOT/platform-tools/adb shell getprop ro.product.cpu.abi
-        echo "Emulator started"
-        adb push ci-test /data/local/tmp/
-        # adb shell am start -n /data/local/tmp/ci-test
-        # adb shell "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/data/local/tmp/; env; cd /data/local/tmp/; chmod +x ./ci-test; ./ci-test"   
-        adb shell find /data/local/tmp -maxdepth 1 -exec chmod +x {} \\\;
-        adb shell find /data/local/tmp -name "*-test" -maxdepth 1 -exec {} \\\;
+        # echo "no" | $ANDROID_SDK_ROOT/tools/bin/avdmanager create avd -n wong_avd -k 'system-images;android-24;default;x86_64' --force
+        # $ANDROID_SDK_ROOT/emulator/emulator -list-avds
+        # echo "Starting emulator"
+        # nohup $ANDROID_SDK_ROOT/emulator/emulator -avd wong_avd -no-snapshot > /dev/null 2>&1 &
+        # echo "Emulator starting"
+        # mkdir build
+        # cd build
+        # cmake -DCMAKE_TOOLCHAIN_FILE=$ANDROID_SDK_ROOT/ndk-bundle/build/cmake/android.toolchain.cmake -DCMAKE_BUILD_TYPE=Release -DANDROID_ABI=x86_64 -DANDROID_ARM_NEON=ON -DANDROID_PLATFORM=16 ..
+        # cmake --build . --target ci-test
+        # $ANDROID_SDK_ROOT/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 10; done; input keyevent 82'
+        # $ANDROID_SDK_ROOT/platform-tools/adb devices
+        # $ANDROID_SDK_ROOT/platform-tools/adb shell getprop ro.product.cpu.abi
+        # echo "Emulator started"
+        # adb push ci-test /data/local/tmp/
+        # # adb shell am start -n /data/local/tmp/ci-test
+        # # adb shell "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/data/local/tmp/; env; cd /data/local/tmp/; chmod +x ./ci-test; ./ci-test"   
+        # adb shell find /data/local/tmp -maxdepth 1 -exec chmod +x {} \\\;
+        # adb shell find /data/local/tmp -name "*-test" -maxdepth 1 -exec {} \\\;
