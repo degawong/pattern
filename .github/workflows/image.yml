@@ -17,7 +17,8 @@ jobs:
         echo "no" | $ANDROID_HOME/tools/bin/avdmanager create avd -n wong_avd -k 'system-images;android-24;default;x86_64' --force
         $ANDROID_HOME/emulator/emulator -list-avds
         echo "Starting emulator"
-        nohup $ANDROID_HOME/emulator/emulator -avd wong_avd -no-snapshot > /dev/null 2>&1 &
+        # nohup $ANDROID_HOME/emulator/emulator -avd wong_avd -no-snapshot > /dev/null 2>&1 &
+        $ANDROID_HOME/emulator/emulator -avd wong_avd -no-snapshot -no-window -no-audio
         echo "Emulator starting"
         mkdir build
         cd build
