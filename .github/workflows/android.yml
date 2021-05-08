@@ -1,6 +1,6 @@
 name: CI_Android
 on:
-  push
+  workflow_dispatch
 
 jobs:
   Android:
