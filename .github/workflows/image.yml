@@ -7,9 +7,9 @@ jobs:
     container: jangrewe/gitlab-ci-android    
     steps:
     - run: |
-        echo $ANDROID_HOME
-        ls $ANDROID_HOME/tools/bin/sdkmanager
-        echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;android-24;default;x86_64'
+        echo /opt/android-sdk
+        ls /opt/android-sdk/tools/bin/sdkmanager
+        echo "y" | /opt/android-sdk/tools/bin/sdkmanager --install 'system-images;android-24;default;x86_64'
         # echo "no" | $ANDROID_HOME/tools/bin/avdmanager create avd -n wong_avd -k 'system-images;android-24;default;x86_64' --force
         # $ANDROID_HOME/emulator/emulator -list-avds
         # echo "Starting emulator"
