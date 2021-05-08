@@ -1,16 +1,15 @@
 name: CI_Android
 on:
   push
-
 jobs:
   Android:
     runs-on: macos-latest
     container:
       image: jangrewe/gitlab-ci-android    
     steps:
-    - uses: actions/checkout@v2
-    - name: Start emulator
-    - run: |
+      - uses: actions/checkout@v2
+      - name: Start emulator
+      - run: |
           echo "y" | $ANDROID_SDK_ROOT/tools/bin/sdkmanager --install 'system-images;android-24;default;x86_64'
           echo "no" | $ANDROID_SDK_ROOT/tools/bin/avdmanager create avd -n wong_avd -k 'system-images;android-24;default;x86_64' --force
           $ANDROID_SDK_ROOT/emulator/emulator -list-avds
