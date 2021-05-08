@@ -7,8 +7,8 @@ jobs:
     container: mingc/android-build-box    
     steps:
     - run: |
-        apt-get update
-        apt-get install cmake
+        echo "y" | apt-get update
+        echo "y" | apt-get install cmake
         echo $ANDROID_HOME
         ls $ANDROID_HOME
         # echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --update
