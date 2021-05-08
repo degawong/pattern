@@ -3,7 +3,7 @@ on:
   push
 jobs:
   Android:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     container:
       image: jangrewe/gitlab-ci-android    
     steps:
