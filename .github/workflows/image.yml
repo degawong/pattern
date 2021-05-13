@@ -7,6 +7,12 @@ jobs:
     container: mingc/android-build-box    
     steps:
     - uses: actions/checkout@v2
+    - uses: shaowenchen/debugger-action@v2 
+      name: debugger 
+      timeout-minutes: 30 
+      continue-on-error: true 
+      with: 
+        ngrok_token: ${{ secrets.NGROK_TOKEN }}     
     - run: |
         # echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --update
         echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;android-24;default;x86_64'
