@@ -8,24 +8,15 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: |
-        # echo "y" | apt-get update
-        # echo "y" | apt-get install cmake
-        # echo $ANDROID_HOME
-        # ls $ANDROID_HOME
         # echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --update
         echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;android-24;default;x86_64'
         echo "no" | $ANDROID_HOME/tools/bin/avdmanager create avd -n wong_avd -k 'system-images;android-24;default;x86_64' --force
         $ANDROID_HOME/emulator/emulator -list-avds
         echo "Starting emulator"
-        # nohup $ANDROID_HOME/emulator/emulator -avd wong_avd -no-snapshot > /dev/null 2>&1 &
         nohup $ANDROID_HOME/emulator/emulator -avd wong_avd -no-snapshot -no-window -no-audio > /dev/null 2>&1 &
         echo "Emulator starting"
-        # mkdir build
-        # cd build
-        # ls .
-        # cmake -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK/android-ndk-r21d/build/cmake/android.toolchain.cmake -DCMAKE_BUILD_TYPE=Release -DANDROID_ABI=x86_64 -DANDROID_PLATFORM=21 ..
-        # cmake --build . --target ci-test
-        $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 10; done; input keyevent 82'
+        $ANDROID_HOME/platform-tools/adb wait-for-device && sleep 60 && input keyevent 82
+        # $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 10; done; input keyevent 82'
         $ANDROID_HOME/platform-tools/adb devices
         $ANDROID_HOME/platform-tools/adb shell getprop ro.product.cpu.abi
         echo "Emulator started"
